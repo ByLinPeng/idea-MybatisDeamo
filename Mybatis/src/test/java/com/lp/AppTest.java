@@ -2,6 +2,7 @@ package com.lp;
 
 import static org.junit.Assert.assertTrue;
 
+import com.lp.mapper.EmpMapper;
 import com.lp.pojo.Emp;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -36,5 +37,18 @@ public class AppTest
             System.out.println (emp);
         }
 
+    }
+    @Test
+    public void findMethod2() throws IOException {
+        InputStream resource = Resources.getResourceAsStream ("jdbc.xml");
+        SqlSessionFactory build = new SqlSessionFactoryBuilder ().build (resource);
+        SqlSession session = build.openSession ();
+        EmpMapper mapper = session.getMapper (EmpMapper.class);
+        List<Emp> list = mapper.find ();
+        session.commit ();
+        for (Emp emp : list) {
+            System.out.println (emp);
+
+        }
     }
 }

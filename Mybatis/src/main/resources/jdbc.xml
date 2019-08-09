@@ -3,26 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="db.properties"/>
+
     <typeAliases>
-        <!--        <typeAlias type="com.lp.pojo.Emp" alias="emp"></typeAlias>-->
+        <!-- 别名方式1，一个一个的配置 type中放置的是类的全路径，alias中放置的是类别名 -->
+       <!--        <typeAlias type="com.lp.pojo.Emp" alias="emp"></typeAlias>-->
+        <!-- 别名方式2，自动扫描，将JAVA类的类名小写作为类的类别名 -->
         <package name="com.lp.pojo"/>
     </typeAliases>
-    <settings>
-        <setting name="logImpl" value="LOG4j"/>
-    </settings>
     <environments default="develop">
         <environment id="develop">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/yonghedb?characterEncoding=utf-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper/EmpMapper.xml"></mapper>
-        <!--        <package name="com.lp.mapper.EmpMapper/xml"/>-->
+        <!-- 告知映射文件方式1，一个一个的配置 -->
+       <mapper resource="mapper/EmpMapper.xml"></mapper>
+        <!-- 告知映射文件方式2，自动扫描包内的Mapper接口与配置文件 -->
+       <!--        <package name="com.lp.mapper.EmpMapper/xml"/>-->
     </mappers>
 </configuration>

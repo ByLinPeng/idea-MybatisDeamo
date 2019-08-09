@@ -13,5 +13,5 @@ public interface EmpMapper {
      *  查询所有员工属性
      * @return emp
      */
-//    List<Emp> find();
+    List<Emp> find();
 }
